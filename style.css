@@ -1,0 +1,89 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/***** Set Variables  *****/
+:root{
+  --btn-width: 70.6px;
+  --btn-height: 70.6px;
+  --btn-font-size: 25px;
+  --btn-background-color: #F9F9F9;
+  --equal-sign-bg: #3DAE3D;
+}
+
+/**** Containers Styles ***/
+.calculator-container{
+  margin: 10% 0% 0% 0%;
+}
+
+.row{
+  margin-bottom: 10px;
+}
+
+.col-md{
+  display: inline;
+  margin: 2% 2.5%;
+}
+
+.button-container{
+  border-top: 1.5px solid var(--btn-background-color);
+  padding-top: 25px;
+}
+
+/*** Input Box Styles **/
+.input-box-container > input{
+  width: 90%;
+  height: 60px;
+  margin-bottom: 26%;
+  margin-left: 5.5%;
+  text-align: right;
+  font-size: 40px;
+  outline: none;
+  border: none;
+  color: #555551;
+}
+
+.results-container {
+  margin-bottom: 8%;
+  height: 4vh;
+  font-size: 20px;
+}
+
+.result{
+  text-align: right;
+  color: #668686;
+  margin: 5.5%
+}
+
+/*** Buttons Styles ***/
+input[type=button]{
+  font-size: var(--btn-font-size);
+  width: var(--btn-width);
+  height: var(--btn-height);
+  border-radius: 50%;
+  border: none;
+  background-color: var(--btn-background-color);
+}
+
+#equal-sign{
+  background-color: var(--equal-sign-bg);
+  color: white;
+  font-size: 45px;
+}
+
+#add-sign, 
+#minus-sign, 
+#modulus-sign,
+#parentheses-sign,
+#division-sign,
+#multiple-sign{
+  color: var(--equal-sign-bg);
+  font-size: 30px;
+}
+
+#clear-sign{
+  color: #FF7575;
+  font-size: 30px;
+}
