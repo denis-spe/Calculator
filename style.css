@@ -87,3 +87,90 @@ input[type=button]{
   color: #FF7575;
   font-size: 30px;
 }
+
+/* Large desktops and laptops */
+@media (min-width: 1200px){
+
+  .calculator-container{
+    width: 30%;
+    position: relative;
+    border: 1px solid black;
+    transform: translate(6%, 3%);
+    margin: auto;
+    height: 99vh;
+  }
+  
+  .input-box-container > input{
+    margin-bottom: 8%;
+  }
+
+  .button-container{
+    margin-left: 3%;
+    position: relative;
+    padding-top: 20px;
+  }
+
+  .results-container{
+    margin: 5;
+  }
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .calculator-container{
+    width: 40%;
+    position: relative;
+    border: 1px solid black;
+    transform: translate(6%, 3%);
+    margin: auto;
+    height: 99vh;
+  }
+  
+  .input-box-container > input{
+    margin-bottom: 8%;
+  }
+
+  .button-container{
+    margin-left: 5%;
+    position: relative;
+    padding-top: 20px;
+  }
+
+  .results-container{
+    margin: 5;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 989px) {
+  .calculator-container{
+    width: 60%;
+    position: relative;
+    border: 1px solid black;
+    transform: translate(6%, 3%);
+    margin: auto;
+    height: 100vh;
+  }
+  
+  .input-box-container > input{
+    margin-bottom: 5%;
+    height: 55px;
+  }
+
+  .button-container{
+    margin-left: 5%;
+    position: relative;
+    padding-top: 5px;
+  }
+
+  .results-container{
+    margin-bottom: 5%;
+    height: 2vh;
+  }
+
+  /*** Buttons Styles ***/
+  input[type=button]{
+    width: 58px;
+    height: 58px;
+    margin-left: 4%;
+  }
+}
