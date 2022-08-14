@@ -1,10 +1,7 @@
-
-
-
-
-window.onkeydown = function (e){
-  return false;
-}
+/*
+* Script for Calculator.
+* ======================
+**/
 
 // Get the input box by id ...........
 const inputBox = document.getElementById("input-box");
@@ -24,16 +21,21 @@ window.addEventListener('DOMContentLoaded',
       if (button.dataset.num === undefined){
         // if the button doesn't have num dataset.
         inputBox.value += button.dataset.sign;
+
       }
       else{
         // else it has a num dataset.
         inputBox.value += button.dataset.num;
+
       }
       
       // Make a clear button ********
       if (button.value === "C"){
         // clear the input box.
         inputBox.value = "";
+
+        // Go back to the default font size.
+        inputBox.style.fontSize = "40px";
       }
     }
   })
@@ -46,6 +48,33 @@ window.addEventListener('DOMContentLoaded',
     
     // Replace some sign in output.
     output = output.replace("÷", "/").replace("x", "*").replace(",", ".");
+
+    // Change the % to percent.
+
+    // Instantiate the Regex instance.
+    var re = new RegExp(/(\d*%)/g);
+
+    // Declare a match.
+    var match;
+
+    do{
+      try{
+        // Extract the match from the output.
+        match = re.exec(output);
+
+        // Compute the percentage.
+        var percent = (eval(match[0].replace('%', '') + "/100"));
+
+        // Replace any string values which starts with digits and ends with %.
+        output = output.replace(match[0], percent)
+
+        console.log(output);
+
+      }catch(TypeError){
+      }
+
+    }while(match)
+    console.log(output.length)
     
     // Compute the output in the input box.
     var compute = eval(output);
@@ -56,7 +85,12 @@ window.addEventListener('DOMContentLoaded',
     
     // Replace back '.' to ','
     compute = compute.replace('.', ',');
+
+    if (compute.length > 7){
+      inputBox.style.fontSize = '20px';
+    }
     
+
     // Insert the results to the input box.
     inputBox.value = compute;
     
