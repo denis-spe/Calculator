@@ -71,13 +71,13 @@ document.addEventListener('DOMContentLoaded',
         if (btn.value == sign){
           if (finalOutPut){
             
-            finalOutPut = finalOutPut.replace("/100", "%") + sign;
-            boxInput.value = finalOutPut;
+            finalOutPut = finalOutPut + sign;
+            boxInput.value = finalOutPut.replace("/100", "%");
             boxInput.focus();
           }
           else{
-            userInput = userInput.replace("/100", "%") + sign;
-            boxInput.value = userInput;
+            userInput = userInput + sign;
+            boxInput.value = userInput.replace("/100", "%");
             boxInput.focus();
           }
           /*if (btn.value == "%"){
@@ -108,7 +108,6 @@ document.addEventListener('DOMContentLoaded',
           document.querySelector('.result').innerHTML = "";
         }
         else{
-          userInput = userInput.replace("%", "/100");
           // save the final output
           finalOutPut = eval(userInput);
           // put the final output to the input box
@@ -134,9 +133,9 @@ document.addEventListener('DOMContentLoaded',
       }
       
       
-      /*if (finalOutPut.match(/\d+[+-÷x]\d+/g)){
+      if (finalOutPut.match(/\d+[+-÷x]\d+/g)){
         document.querySelector('.result').innerHTML = eval(finalOutPut);
-      }*/
+      }
     }
  })
 })
