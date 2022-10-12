@@ -1,4 +1,4 @@
-// Shortcut the console.log and assert.
+// Shortcut for console.log and assert.
 let {log} = console;
 let {assert} = console;
 
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded',
         else{
           userInput += this.dataset.num;
           boxInput.focus();
-          boxInput.value = userInput.replace("/100", "%");
+          boxInput.value = userInput.replace("/100", "%").replace("/", '÷').replace("*", 'x');
         }
         
       }
@@ -40,31 +40,6 @@ document.addEventListener('DOMContentLoaded',
         boxInput.value = userInput;
         boxInput.focus();
       }
-      
-      var percentSign = function(output){
-        let _output = [];
-        if (output.includes("%")){
-          const splited = output.split(/([*/+-])/g);
-          
-          // loop through the splited array.
-          for (let val of splited){
-            if (val.includes("%")){
-              val = val.replace("%", "") / 100
-              _output.push(val);
-            }
-            else{
-              _output.push(val)
-            }
-          }
-        }
-        return _output.join("");
-          
-      }
-      // Assertion Test.
-      assert(percentSign("2%") === "0.02");
-      assert(percentSign("5%") === "0.05");
-      assert(percentSign("5%*6") === "0.05*6");
-      // log(percentSign("7%+8%*9-6%"));
       
       
       signCallback = (sign) => {
@@ -122,8 +97,10 @@ document.addEventListener('DOMContentLoaded',
       
       if (userInput.match(/\d+[+-÷x%]\d+/g)){
         userInput = userInput.replace("÷", "/").replace('x', "*").replace("%", "/100");
-       
-        document.querySelector('.result').innerHTML = eval(userInput);
+        if (/[+*\/]/g.test(userInput)){
+          // Display the results if sign in useInput.
+          document.querySelector('.result').innerHTML = eval(userInput);
+        }
       }
       if (userInput.match(/\d+[%]/g)){
         // Replace modulus sign to /100.
@@ -152,4 +129,4 @@ document.addEventListener('DOMContentLoaded',
 
 
 
-
+/*********** Glory Be To God ******/
