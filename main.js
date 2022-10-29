@@ -9,10 +9,13 @@ var userInput = "";
 var result = "";
 var finalOutPut = "";
 
+let arrayParentheses = [];
+
 /**
  * Replace characters and compute string input.
- * @textInput: string with digit or character
+ * @param inputs: string with digit or character
  * like 'x' for multiple and '÷' for divide.
+ * @returns String of digit or digits calculated.
  */
 compute = function(inputs){
   // Replace 'x', '%', '÷' to different signs.
@@ -29,6 +32,15 @@ assert(compute('12÷2') === '6');
 assert(compute('6÷2÷3') === '1')
 assert(compute('2%') === '0.02');
 assert(compute('4%-6') === '-5.96');
+
+
+/**
+ * Adds parentheses to the inputs.
+ * @param inputs
+ */
+function parentheses(inputs){
+  log(inputs.lastindexOf('('))
+}
 
 
 document.addEventListener('DOMContentLoaded',
@@ -67,11 +79,84 @@ document.addEventListener('DOMContentLoaded',
       }
       
       if (btn.value === "C"){
+        // Clear out the results in the box input.
         userInput = "";
         finalOutPut = "";
+        arrayParentheses.length = 0;
         document.querySelector('.result').innerHTML = "";
         boxInput.value = userInput;
         boxInput.focus();
+      }
+      
+      if (btn.value === "( )"){
+        
+        
+        // if clicked on the parenthesis symbol.
+        if (arrayParentheses.includes('(')){
+          if (finalOutPut === ""){
+            // if nothing in the box then add the open parentheses.
+            arrayParentheses.push(')');
+          
+            // Add the parentheses to the user input.
+            userInput += arrayParentheses[1];
+       
+            // Add the user input to the box input
+            boxInput.value = userInput;
+          
+            // Then focus back on the box input
+            boxInput.focus()
+          
+            /* Reset the arrayParentheses to 0 length if the close parentheses was added*/
+            arrayParentheses.length = 0;
+          }
+          else{
+            // if nothing in the box then add the open parentheses.
+            arrayParentheses.push(')');
+          
+            // Add the parentheses to the user input.
+            finalOutPut += arrayParentheses[1];
+       
+            // Add the user input to the box input
+            boxInput.value = finalOutPut;
+          
+            // Then focus back on the box input
+            boxInput.focus()
+          
+            /* Reset the arrayParentheses to 0 length if the close parentheses was added*/
+            arrayParentheses.length = 0;
+          }
+        }
+        
+        else{
+          /* if there is the open parentheses in userInput then add a close parentheses.
+          */
+          let re = new RegExp(/\d+$/g);
+          
+          if (finalOutPut === ""){
+            if (re.test(userInput)){
+              // if useInput ends with $ and x multiply sign.
+              userInput += "x";
+            }
+            
+            arrayParentheses.push('(');
+            
+           // Add the close parentheses to userinput
+            userInput += arrayParentheses[0]
+            boxInput.value = userInput;
+          }
+          else{
+            if (re.test(finalOutPut)){
+              // if useInput ends with $ and x multiply sign.
+              finalOutPut += "x";
+            }
+            
+            arrayParentheses.push('(');
+            
+           // Add the close parentheses to userinput
+            finalOutPut += arrayParentheses[0]
+            boxInput.value = finalOutPut;
+          }
+        }
       }
       
       
@@ -102,10 +187,10 @@ document.addEventListener('DOMContentLoaded',
       
       // Call the sign callback
       signCallback("+");
-      signCallback("-")
-      signCallback("÷")
-      signCallback("x")
-      signCallback("%")
+      signCallback("-");
+      signCallback("÷");
+      signCallback("x");
+      signCallback("%");
       
       if (btn.value == "="){
         
@@ -118,6 +203,7 @@ document.addEventListener('DOMContentLoaded',
           boxInput.value = finalOutPut;
           finalOutPut = "";
           document.querySelector('.result').innerHTML = "";
+          arrayParentheses.length = 0;
         }
         else{
           // save the final output
@@ -129,6 +215,7 @@ document.addEventListener('DOMContentLoaded',
           boxInput.value = userInput;
           document.querySelector('.result').innerHTML = "";
           userInput = "";
+          arrayParentheses.length = 0;
         }
         
         
