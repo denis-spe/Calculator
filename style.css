@@ -30,6 +30,10 @@
 .button-container{
   border-top: 1.5px solid var(--btn-background-color);
   padding-top: 25px;
+  position: relative;
+  width: 95%;
+  left: 10px;
+  
 }
 
 /*** Input Box Styles **/
@@ -65,12 +69,13 @@ input[type=button]{
   border-radius: 50%;
   border: none;
   background-color: var(--btn-background-color);
+  
 }
 
 #equal-sign{
   background-color: var(--equal-sign-bg);
   color: white;
-  font-size: 45px;
+  font-size: 50px;
 }
 
 #add-sign, 
@@ -80,12 +85,14 @@ input[type=button]{
 #division-sign,
 #multiple-sign{
   color: var(--equal-sign-bg);
-  font-size: 30px;
+  font-size: 33px;
+  font-weight: bold;
 }
 
 #clear-sign{
   color: #FF7575;
-  font-size: 30px;
+  font-size: 33px;
+  font-weight: bold;
 }
 
 /* Large desktops and laptops */

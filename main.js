@@ -38,8 +38,54 @@ assert(compute('4%-6') === '-5.96');
  * Adds parentheses to the inputs.
  * @param inputs
  */
-function parentheses(inputs){
-  log(inputs.lastindexOf('('))
+function parenthesesHandler(userInput){
+  
+  let re = new RegExp(/\(*\d+/g);
+  let secondMatch = new RegExp(/[x+÷-]$/g);
+  let digit_prevent = new RegExp(/\d+$|\)/g);
+  let endsWithDigit = new RegExp(/\d$/g);
+  
+  /*if (!re.test(userInput)){
+    arrayParentheses.push("(");
+    userInput += arrayParentheses[0];
+    boxInput.value = userInput;
+  }*/
+  
+  let newInput;
+  
+  if (arrayParentheses.length == 0) {
+    if (endsWithDigit.test(userInput)) {
+      arrayParentheses.push('(');
+      newInput = 'x' + arrayParentheses[0];
+      log(userInput);
+      //boxInput.valu
+    }
+    else {
+      arrayParentheses.push("(");
+      newInput = arrayParentheses[0];
+      //boxInput.value = userInput;
+    }
+  }
+  else if (secondMatch.test(userInput)) {
+    arrayParentheses.push('(');
+    newInput = arrayParentheses[0];
+    //boxInput.value = userInput;
+  }
+  
+  
+  
+  /*else if (digit_prevert.test(userInput)){
+    userInput += '(';
+    boxInput.value = userInput;
+  }*/
+  
+  else {
+    newInput = ')';
+    //boxInput.value = userInput;
+    arrayParentheses.pop();
+  }
+  
+  return newInput;
 }
 
 
@@ -89,74 +135,56 @@ document.addEventListener('DOMContentLoaded',
       }
       
       if (btn.value === "( )"){
+        if (finalOutPut){
+          finalOutPut += parenthesesHandler(finalOutPut);
+          boxInput.value = finalOutPut;
+        }
+        else{
+          userInput += parenthesesHandler(userInput);
+          boxInput.value = userInput;
+        }
+        /**let re = new RegExp(/\(*\d+/g);
+        let secondMatch = new RegExp(/[x+÷-]$/g);
+        let digit_prevent = new RegExp(/\d+$|\)/g);
+        let endsWithDigit = new RegExp(/\d$/g);
         
-        
-        // if clicked on the parenthesis symbol.
-        if (arrayParentheses.includes('(')){
-          if (finalOutPut === ""){
-            // if nothing in the box then add the open parentheses.
-            arrayParentheses.push(')');
-          
-            // Add the parentheses to the user input.
-            userInput += arrayParentheses[1];
-       
-            // Add the user input to the box input
+        //if (!re.test(userInput)){
+          arrayParentheses.push("(");
+          userInput += arrayParentheses[0];
+          boxInput.value = userInput;
+        }
+        if (arrayParentheses.length == 0){
+          if (endsWithDigit.test(userInput)){
+            arrayParentheses.push('(');
+            userInput = userInput + 'x' + arrayParentheses[0];
+            log(userInput);
             boxInput.value = userInput;
-          
-            // Then focus back on the box input
-            boxInput.focus()
-          
-            /* Reset the arrayParentheses to 0 length if the close parentheses was added*/
-            arrayParentheses.length = 0;
           }
           else{
-            // if nothing in the box then add the open parentheses.
-            arrayParentheses.push(')');
-          
-            // Add the parentheses to the user input.
-            finalOutPut += arrayParentheses[1];
-       
-            // Add the user input to the box input
-            boxInput.value = finalOutPut;
-          
-            // Then focus back on the box input
-            boxInput.focus()
-          
-            /* Reset the arrayParentheses to 0 length if the close parentheses was added*/
-            arrayParentheses.length = 0;
+            arrayParentheses.push("(");
+            userInput += arrayParentheses[0];
+            boxInput.value = userInput;
           }
+        }
+        else if (secondMatch.test(userInput)){
+          arrayParentheses.push('(');
+          userInput += arrayParentheses[0];
+          boxInput.value = userInput;
+        }
+        
+        
+        
+        //else if (digit_prevert.test(userInput)){
+          userInput += '(';
+          boxInput.value = userInput;
         }
         
         else{
-          /* if there is the open parentheses in userInput then add a close parentheses.
-          */
-          let re = new RegExp(/\d+$/g);
-          
-          if (finalOutPut === ""){
-            if (re.test(userInput)){
-              // if useInput ends with $ and x multiply sign.
-              userInput += "x";
-            }
-            
-            arrayParentheses.push('(');
-            
-           // Add the close parentheses to userinput
-            userInput += arrayParentheses[0]
-            boxInput.value = userInput;
-          }
-          else{
-            if (re.test(finalOutPut)){
-              // if useInput ends with $ and x multiply sign.
-              finalOutPut += "x";
-            }
-            
-            arrayParentheses.push('(');
-            
-           // Add the close parentheses to userinput
-            finalOutPut += arrayParentheses[0]
-            boxInput.value = finalOutPut;
-          }
-        }
+          userInput += ')';
+          boxInput.value = userInput;
+          arrayParentheses.pop();
+        }*/
+        
       }
       
       
