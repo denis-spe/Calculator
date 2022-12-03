@@ -20,13 +20,32 @@ let arrayParentheses = [];
 compute = function(inputs){
   // Replace 'x', '%', '÷' to different signs.
   let textInput = inputs.replaceAll('x', '*').replaceAll('÷', '/').replaceAll('%', '/100');
-
-  return new String(eval(textInput)).valueOf().toUpperCase();
+  
+  // Number execution.
+  var exec = eval(textInput);
+  
+  /*if ((exec + "".split('. > 10){
+    exec = exec.toFixed(10);
+  }*/
+  
+  
+  // Change the executed output to string.
+  var output = new String(exec).valueOf().toUpperCase();
+  
+  if (output.includes('.')){
+    if (output.split('.')[1].length > 10){
+      // Reduce the amount of digit precision.
+      output = new String(eval(textInput).toFixed(10)).valueOf().toUpperCase();
+    }
+  }
+  
+  return output;
 }
 
 /**
  * Assertion test compute function.
  */
+assert(compute('5÷3') === '1.6666666667');
 assert(compute('4x3') === '12');
 assert(compute('12÷2') === '6');
 assert(compute('6÷2÷3') === '1')
@@ -44,6 +63,7 @@ function parenthesesHandler(userInput){
   let secondMatch = new RegExp(/[x+÷-]$/g);
   let digit_prevent = new RegExp(/\d+$|\)/g);
   let endsWithDigit = new RegExp(/\d$/g);
+  let endswithParanetheses = new RegExp(/\)$/g);
   
   /*if (!re.test(userInput)){
     arrayParentheses.push("(");
@@ -57,8 +77,10 @@ function parenthesesHandler(userInput){
     if (endsWithDigit.test(userInput)) {
       arrayParentheses.push('(');
       newInput = 'x' + arrayParentheses[0];
-      log(userInput);
-      //boxInput.valu
+    }
+    else if (endswithParanetheses.test(userInput)){
+      arrayParentheses.push('(');
+      newInput = 'x' + arrayParentheses[0];
     }
     else {
       arrayParentheses.push("(");
