@@ -156,6 +156,26 @@ document.addEventListener('DOMContentLoaded',
         boxInput.focus();
       }
       
+      if (this.dataset.sign === "."){
+        if (finalOutPut){
+          // Add a dot to the final output
+          finalOutPut += this.dataset.sign;
+          // Put back the modified final output.
+          boxInput.value
+          boxInput.value = finalOutPut;
+          // Focus on dot click
+          boxInput.focus();
+        }
+        else{
+          // Add a dot to the user input.
+          userInput += this.dataset.sign;
+          // Put back the modified userInput
+          boxInput.value = userInput;
+          // Focus on dot click
+          boxInput.focus();
+        }
+      }
+      
       if (btn.value === "( )"){
         if (finalOutPut){
           finalOutPut += parenthesesHandler(finalOutPut);
@@ -254,6 +274,9 @@ document.addEventListener('DOMContentLoaded',
           finalOutPut = "";
           document.querySelector('.result').innerHTML = "";
           arrayParentheses.length = 0;
+          
+          // Alway focus
+          boxInput.focus();
         }
         else{
           // save the final output
@@ -266,6 +289,9 @@ document.addEventListener('DOMContentLoaded',
           document.querySelector('.result').innerHTML = "";
           userInput = "";
           arrayParentheses.length = 0;
+          
+          // Alway focus
+          boxInput.focus();
         }
         
         
