@@ -64,6 +64,7 @@ function parenthesesHandler(userInput){
   let digit_prevent = new RegExp(/\d+$|\)/g);
   let endsWithDigit = new RegExp(/\d$/g);
   let endswithParanetheses = new RegExp(/\)$/g);
+  let startWithParenthesesNegative = new RegExp(/\(\-\d*/g);
   
   /*if (!re.test(userInput)){
     arrayParentheses.push("(");
@@ -74,6 +75,7 @@ function parenthesesHandler(userInput){
   let newInput;
   
   if (arrayParentheses.length == 0) {
+    
     if (endsWithDigit.test(userInput)) {
       arrayParentheses.push('(');
       newInput = 'x' + arrayParentheses[0];
@@ -82,6 +84,7 @@ function parenthesesHandler(userInput){
       arrayParentheses.push('(');
       newInput = 'x' + arrayParentheses[0];
     }
+    
     else {
       arrayParentheses.push("(");
       newInput = arrayParentheses[0];
@@ -111,11 +114,31 @@ function parenthesesHandler(userInput){
 }
 
 
+let negativeCallable = function(userInput){
+  let endsWithDigit = new RegExp(/\d*$/g);
+  let endsWithParentheses = new RegExp(/\d*\)$/g);
+  
+  if (userInput.endsWith(")")){
+    let onclick = userInput + 'x(-';
+    arrayParentheses.push("(")
+    return onclick;
+  }
+  
+  if (endsWithDigit.test(userInput)){
+    let onclick = '(-' + userInput;
+    arrayParentheses.push("(")
+    return onclick;
+  }
+  
+  let onclick = userInput + "(-";
+  arrayParentheses.push("(")
+  return onclick;
+}
+
+
 document.addEventListener('DOMContentLoaded',
 () => {
   var buttons = document.querySelectorAll('input[type=button');
-  
-  //boxInput.autofocus = 'true';
   
   // for each button
   buttons.forEach(btn => {
@@ -152,6 +175,12 @@ document.addEventListener('DOMContentLoaded',
         finalOutPut = "";
         arrayParentheses.length = 0;
         document.querySelector('.result').innerHTML = "";
+        boxInput.value = userInput;
+        boxInput.focus();
+      }
+      
+      if (this.dataset.sign === "+/-"){
+        userInput = negativeCallable(userInput);
         boxInput.value = userInput;
         boxInput.focus();
       }
