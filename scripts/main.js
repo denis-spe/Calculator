@@ -117,14 +117,28 @@ function parenthesesHandler(userInput){
 let negativeCallable = function(userInput){
   let endsWithDigit = new RegExp(/\d*$/g);
   let endsWithParentheses = new RegExp(/\d*\)$/g);
+  let hasAsignInMiddle = new RegExp(/[x+÷-]\d*$/g);
   
-  if (userInput.endsWith(")")){
+  // Extract x4 from (-(-2x4
+  let extracted = hasAsignInMiddle.exec(userInput);
+  
+  if(extracted !== null){
+    let num = extracted[0].substring(1);
+    let sign = extracted[0][0];
+    let onclick = userInput.replace(extracted, "") + sign + "(-" + num;
+    arrayParentheses.push('(');
+    return onclick;
+    
+    
+  }
+  
+  else if (userInput.endsWith(")")){
     let onclick = userInput + 'x(-';
     arrayParentheses.push("(")
     return onclick;
   }
   
-  if (endsWithDigit.test(userInput)){
+  else if (endsWithDigit.test(userInput)){
     let onclick = '(-' + userInput;
     arrayParentheses.push("(")
     return onclick;
