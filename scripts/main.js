@@ -11,6 +11,19 @@ var finalOutPut = "";
 
 let arrayParentheses = [];
 
+/*
+ * It handle the execution of code without a closing
+ * parentheses
+ * @param inputs: Inputs to pass in eval function.
+ * @return new inputs: A new string inputs.
+ */
+let parenthesesRemover = function(output) {
+  if (arrayParentheses.length > 0){
+    return output.replaceAll("(", "");
+  }
+  return output;
+}
+
 /**
  * Replace characters and compute string input.
  * @param inputs: string with digit or character
@@ -20,6 +33,12 @@ let arrayParentheses = [];
 compute = function(inputs){
   // Replace 'x', '%', '÷' to different signs.
   let textInput = inputs.replaceAll('x', '*').replaceAll('÷', '/').replaceAll('%', '/100');
+  
+  /* Before computing check if there is 
+   enough closing parentheses else remove
+   open parentheses.
+  */
+  textInput = parenthesesRemover(textInput)
   
   // Number execution.
   var exec = eval(textInput);
@@ -306,10 +325,14 @@ document.addEventListener('DOMContentLoaded',
       signCallback("%");
       
       if (btn.value == "="){
+        /* Before computing check if there is 
+          enough closing parentheses else remove
+          open parentheses.
+        */
+        userInput = parenthesesRemover(userInput)
         
         if (finalOutPut){
           //finalOutPut = finalOutPut.replace("÷", "/").replace("x", '*').replace("%", "/100");
-          
           finalOutPut = compute(finalOutPut);
           
           userInput = finalOutPut;
@@ -324,6 +347,8 @@ document.addEventListener('DOMContentLoaded',
         else{
           // save the final output
           finalOutPut = compute(userInput)
+          
+
           
           // put the final output to the input box
           userInput = compute(userInput)
@@ -343,6 +368,7 @@ document.addEventListener('DOMContentLoaded',
     // Display the replace.
     
     if (userInput.match(/(\d+[x+÷-]\d+)|(\d+%)/g)){
+        
       /*if digits times or plus etc digits or 
         digits endswith % in userInput
         display the result
@@ -351,6 +377,7 @@ document.addEventListener('DOMContentLoaded',
     }
     
     if (finalOutPut.match(/(\d+[x+÷-]\d+)|(\d+%)/g)){
+      
        /*if digits times or plus etc digits or 
         digits endswith % in finalOutPut
         display the result
