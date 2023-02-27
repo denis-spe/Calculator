@@ -143,3 +143,13 @@ Styling sign buttons
 #modulus-sign{
   font-family: sans-serif, serif;
 }
+
+/*
+  ===== Mobile phone view =====
+*/
+@media only screen and (max-width: 768px){
+  input[type=button]{
+    width: 69px;
+    height: 69px;
+  }
+}

@@ -9,7 +9,7 @@ var userInput = "";
 var result = "";
 var finalOutPut = "";
 
-let arrayParentheses = [];
+let arrayParentheses = []; 
 
 /*
  * It handle the execution of code without a closing
