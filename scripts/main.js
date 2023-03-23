@@ -300,13 +300,19 @@ document.addEventListener('DOMContentLoaded',
 
         signCallback = (sign) => {
           if (btn.value == sign) {
-            if (finalOutPut) {
+            if (finalOutPut){
               if (!finalOutPut.endsWith(sign)) {
+                if (finalOutPut !== "" && finalOutPut.match(/(\d+$)|(\.*\)$)/g)) {
+                finalOutPut = finalOutPut + sign;
+              
+                boxInput.value = finalOutPut;
+                }
+              
+               else if (sign == "+" | sign == "-"){
                 finalOutPut = finalOutPut + sign;
                 boxInput.value = finalOutPut;
-                boxInput.focus();
-              }
-              else {
+                }
+                
                 boxInput.focus();
               }
             }
@@ -316,6 +322,11 @@ document.addEventListener('DOMContentLoaded',
                 if (userInput !== "" && userInput.match(/(\d+$)|(\.*\)$)/g)){
                   userInput = userInput + sign;
           
+                  boxInput.value = userInput;
+                }
+                
+                else if (sign == "+" | sign == "-"){
+                  userInput = userInput + sign;
                   boxInput.value = userInput;
                 }
                 boxInput.focus();
@@ -383,7 +394,7 @@ document.addEventListener('DOMContentLoaded',
           document.querySelector('.result').innerHTML = compute(userInput);
         }
 
-        if (finalOutPut.match(/(\d+[x+÷-]\d+)|([-+X÷]\d+$)/g)) {
+        if (finalOutPut.match(/(\d+[x+÷-]\d+)|([-+X÷]\d+$)|([-+X÷]\(\d+)/g)) {
 
           /*if digits times or plus etc digits or 
         digits endswith % in finalOutPut
