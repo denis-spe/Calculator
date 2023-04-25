@@ -300,34 +300,43 @@ document.addEventListener('DOMContentLoaded',
 
         signCallback = (sign) => {
           if (btn.value == sign) {
-            if (finalOutPut){
+            if (finalOutPut) {
               if (!finalOutPut.endsWith(sign)) {
-                if (finalOutPut !== "" && finalOutPut.match(/(\d+$)|(\.*\)$)/g)) {
-                finalOutPut = finalOutPut + sign;
-              
-                boxInput.value = finalOutPut;
+                if (finalOutPut != "") {
+                  if (finalOutPut.match(/(\d+$)|(\.*\)$)/g)) {
+                    finalOutPut = finalOutPut + sign;
+
+                    boxInput.value = finalOutPut;
+                  }
+
+                  else if (sign == "+" | sign == "-") {
+                    finalOutPut = finalOutPut + sign;
+                    boxInput.value = finalOutPut;
+                  }
+
+                  boxInput.focus();
                 }
-              
-               else if (sign == "+" | sign == "-"){
-                finalOutPut = finalOutPut + sign;
-                boxInput.value = finalOutPut;
-                }
-                
-                boxInput.focus();
               }
             }
             else {
               if (!userInput.endsWith(sign)) {
-                
-                if (userInput !== "" && userInput.match(/(\d+$)|(\.*\)$)/g)){
-                  userInput = userInput + sign;
-          
-                  boxInput.value = userInput;
+                if (userInput != "") {
+                  if (userInput.match(/(\d+$)|(\.*\)$)/g)) {
+                    userInput = userInput + sign;
+
+                    boxInput.value = userInput;
+                  }
+
+                  else if (sign == "+" | sign == "-") {
+
+                    if (userInput != "") {
+                      userInput = userInput + sign;
+                      boxInput.value = userInput;
+                    }
+                  }
                 }
-                
-                else if (sign == "+" | sign == "-"){
-                  userInput = userInput + sign;
-                  boxInput.value = userInput;
+                else {
+                  console.log("Invalid input")
                 }
                 boxInput.focus();
               }
@@ -351,30 +360,44 @@ document.addEventListener('DOMContentLoaded',
 
           if (finalOutPut) {
             //finalOutPut = finalOutPut.replace("÷", "/").replace("x", '*').replace("%", "/100");
-            finalOutPut = compute(finalOutPut);
+            if (finalOutPut != "") {
+              finalOutPut = compute(finalOutPut);
 
-            userInput = finalOutPut;
-            boxInput.value = finalOutPut;
-            finalOutPut = "";
-            document.querySelector('.result').innerHTML = "";
-            arrayParentheses.length = 0;
+              userInput = finalOutPut;
+              boxInput.value = finalOutPut;
+              finalOutPut = "";
+              document.querySelector('.result').innerHTML = "";
+              arrayParentheses.length = 0;
+            }
+            else{
+              console.log("Invalid input")
+              // Alway focus
+              boxInput.focus();
+            }
 
             // Alway focus
             boxInput.focus();
           }
           else {
-            // save the final output
-            finalOutPut = compute(userInput)
+            if (userInput != "") {
+              // save the final output
+              finalOutPut = compute(userInput)
 
 
 
-            // put the final output to the input box
-            userInput = compute(userInput)
+              // put the final output to the input box
+              userInput = compute(userInput)
 
-            boxInput.value = userInput;
-            document.querySelector('.result').innerHTML = "";
-            userInput = "";
-            arrayParentheses.length = 0;
+              boxInput.value = userInput;
+              document.querySelector('.result').innerHTML = "";
+              userInput = "";
+              arrayParentheses.length = 0;
+            }
+            else{
+              console.log("Invalid input")
+              // Alway focus
+              boxInput.focus();
+            }
 
             // Alway focus
             boxInput.focus();
@@ -385,7 +408,7 @@ document.addEventListener('DOMContentLoaded',
 
         // Display the replace.
 
-        if (userInput.match(/(\d+[x+÷-]\d+)|([-+X÷]\d+$)|([-+X÷]\(\d+)/g)) {
+        if (userInput.match(/(\d+[x+÷-]\d+)|([-+X÷]\d+$)|([-+X÷]\(\d+)|\(\d+$/g)) {
 
           /*if digits times or plus etc digits or 
             digits endswith % in userInput
@@ -402,7 +425,6 @@ document.addEventListener('DOMContentLoaded',
       */
           document.querySelector('.result').innerHTML = compute(finalOutPut);
         }
-
       }
     })
   })
