@@ -61,6 +61,21 @@ let compute = function(inputs) {
   return output;
 }
 
+
+/**
+ * Invalid instructions
+ */
+let invalidMessage = function(element){
+  setTimeout(function(){
+    element.style.display = "block"
+  }, 100)
+  
+  setTimeout(function(){
+    element.style.display = "none"
+  }, 1000)
+}
+
+
 /**
  * Assertion test compute function.
  */
@@ -178,6 +193,8 @@ let negativeCallable = function(userInput) {
 document.addEventListener('DOMContentLoaded',
   () => {
     var buttons = document.querySelectorAll('input[type=button');
+    
+    var invalidInputContainer = document.querySelector(".invalid-input-container");
 
     // for each button
     buttons.forEach(btn => {
@@ -336,7 +353,7 @@ document.addEventListener('DOMContentLoaded',
                   }
                 }
                 else {
-                  console.log("Invalid input")
+                  invalidMessage(invalidInputContainer);
                 }
                 boxInput.focus();
               }
