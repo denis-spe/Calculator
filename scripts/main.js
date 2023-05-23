@@ -65,12 +65,12 @@ let compute = function(inputs) {
 /**
  * Invalid instructions
  */
-let invalidMessage = function(element){
-  setTimeout(function(){
+let invalidMessage = function(element) {
+  setTimeout(function() {
     element.style.display = "block"
   }, 100)
-  
-  setTimeout(function(){
+
+  setTimeout(function() {
     element.style.display = "none"
   }, 1000)
 }
@@ -193,7 +193,7 @@ let negativeCallable = function(userInput) {
 document.addEventListener('DOMContentLoaded',
   () => {
     var buttons = document.querySelectorAll('input[type=button');
-    
+
     var invalidInputContainer = document.querySelector(".invalid-input-container");
 
     // for each button
@@ -252,8 +252,14 @@ document.addEventListener('DOMContentLoaded',
             boxInput.focus();
           }
           else {
-            // Add a dot to the user input.
-            userInput += this.dataset.sign;
+            
+            if (userInput === '' || userInput.match(/(.*[+X÷])/g)){
+              // if userInput is empty or there is digit followed by sign then add 0.
+              userInput += '0' + this.dataset.sign
+            }
+            else{
+              userInput += this.dataset.sign
+            }
             // Put back the modified userInput
             boxInput.value = userInput;
             // Focus on dot click
@@ -270,48 +276,6 @@ document.addEventListener('DOMContentLoaded',
             userInput += parenthesesHandler(userInput);
             boxInput.value = userInput;
           }
-          /**let re = new RegExp(/\(*\d+/g);
-          let secondMatch = new RegExp(/[x+÷-]$/g);
-          let digit_prevent = new RegExp(/\d+$|\)/g);
-          let endsWithDigit = new RegExp(/\d$/g);
-          
-          //if (!re.test(userInput)){
-            arrayParentheses.push("(");
-            userInput += arrayParentheses[0];
-            boxInput.value = userInput;
-          }
-          if (arrayParentheses.length == 0){
-            if (endsWithDigit.test(userInput)){
-              arrayParentheses.push('(');
-              userInput = userInput + 'x' + arrayParentheses[0];
-              log(userInput);
-              boxInput.value = userInput;
-            }
-            else{
-              arrayParentheses.push("(");
-              userInput += arrayParentheses[0];
-              boxInput.value = userInput;
-            }
-          }
-          else if (secondMatch.test(userInput)){
-            arrayParentheses.push('(');
-            userInput += arrayParentheses[0];
-            boxInput.value = userInput;
-          }
-          
-          
-          
-          //else if (digit_prevert.test(userInput)){
-            userInput += '(';
-            boxInput.value = userInput;
-          }
-          
-          else{
-            userInput += ')';
-            boxInput.value = userInput;
-            arrayParentheses.pop();
-          }*/
-
         }
 
 
@@ -351,6 +315,13 @@ document.addEventListener('DOMContentLoaded',
                       boxInput.value = userInput;
                     }
                   }
+                  else if (sign == "x") {
+                    if (userInput.match(/\d*%/g)) {
+                      userInput = userInput + sign;
+                      boxInput.value = userInput;
+                    }
+                    console.log("x")
+                  }
                 }
                 else {
                   invalidMessage(invalidInputContainer);
@@ -386,7 +357,7 @@ document.addEventListener('DOMContentLoaded',
               document.querySelector('.result').innerHTML = "";
               arrayParentheses.length = 0;
             }
-            else{
+            else {
               console.log("Invalid input")
               // Alway focus
               boxInput.focus();
@@ -410,7 +381,7 @@ document.addEventListener('DOMContentLoaded',
               userInput = "";
               arrayParentheses.length = 0;
             }
-            else{
+            else {
               console.log("Invalid input")
               // Alway focus
               boxInput.focus();
@@ -425,7 +396,7 @@ document.addEventListener('DOMContentLoaded',
 
         // Display the replace.
 
-        if (userInput.match(/(\d+[x+÷-]\d+)|([-+X÷]\d+$)|([-+X÷]\(\d+)|\(\d+$/g)) {
+        if (userInput.match(/(\d+[x+÷-]\d+)|([-+X÷]\d+$)|([-+X÷]\(\d+)|\(\d+$|(^\d*\%$)/g)) {
 
           /*if digits times or plus etc digits or 
             digits endswith % in userInput
@@ -434,7 +405,7 @@ document.addEventListener('DOMContentLoaded',
           document.querySelector('.result').innerHTML = compute(userInput);
         }
 
-        if (finalOutPut.match(/(\d+[x+÷-]\d+)|([-+X÷]\d+$)|([-+X÷]\(\d+)/g)) {
+        if (finalOutPut.match(/(\d+[x+÷-]\d+)|([-+X÷]\d+$)|([-+X÷]\(\d+)|(^\d*\%$)/g)) {
 
           /*if digits times or plus etc digits or 
         digits endswith % in finalOutPut
